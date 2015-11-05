@@ -115,6 +115,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	export PATH=$PATH:/usr/local/go/bin
 	export GOPATH=$HOME/Workspace/go
 
+	# Set default editor to vim
+	export VISUAL=vim
+	export EDITOR="$VISUAL"
+
 elif [[ "OSTYPE" == "darwin"* ]]; then
 
 	# Prompt
