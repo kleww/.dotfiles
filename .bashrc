@@ -111,6 +111,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
   		fi
 	fi
 
+	# Add Golang binaries path to PATH and set GOPATH
+	export PATH=$PATH:/usr/local/go/bin
+	export GOPATH=$HOME/Workspace/go
+
 elif [[ "OSTYPE" == "darwin"* ]]; then
 
 	# Prompt
