@@ -119,7 +119,7 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	export VISUAL=vim
 	export EDITOR="$VISUAL"
 
-elif [[ "OSTYPE" == "darwin"* ]]; then
+elif [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# Prompt
 	export PS1="\u@\h:\w\$ "
