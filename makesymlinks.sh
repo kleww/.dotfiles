@@ -24,16 +24,17 @@ echo "===== ...done ====="
 
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 for file in $files; do
-	if [ -f ~/$file ]; then
-		echo "===== Moving ~/$file to $olddir ====="
-		mv -f ~/$file $olddir
-	fi
+    if [ -f ~/$file ]; then
+        echo "===== Moving ~/$file to $olddir ====="
+        mv -f ~/$file $olddir
+    fi
     echo "===== Creating symlink to $file in home directory ====="
     ln -s $dir/$file ~/$file
 done
 
 # Install vundle and plugins
 echo "===== Install vundle ====="
+rm -rf ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 echo "===== ...done ====="
 echo "===== Install vundle plugins ====="

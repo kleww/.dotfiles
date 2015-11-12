@@ -40,6 +40,7 @@ set listchars=tab:T-
 set number                                  " Display line number
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
+set t_Co=16
 "let g:solarized_termcolors=256             " if terminal != solarized uncomment
 colorscheme solarized                       " Use solarized colorscheme
 
