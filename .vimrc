@@ -19,7 +19,7 @@ Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
 Plugin 'altercation/vim-colors-solarized'   " Solarized colorscheme
 
-" All of your Plugins must be added before the following line
+" Plugins must be added before the following line
 call vundle#end()                           " Required
 filetype plugin indent on                   " Required
 
@@ -36,12 +36,12 @@ set tabstop=4                               "
 " Display
 
 set number                                  " Display line number
+set colorcolumn=81                          " Display a limit line after 80 col
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
 set t_Co=16
 "let g:solarized_termcolors=256             " if terminal != solarized uncomment
-colorscheme solarized                       " Use solarized colorscheme
-
+silent! colorscheme solarized               " Use solarized colorscheme if exist
 " ------------------------------------------------------------------------------
 " Airline settings
 
