@@ -129,5 +129,9 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	alias ll='ls -alFh'
 	alias la='ls -A'
 	alias l=' ls -CF'
+	
+    # Set default editor to vim
+	export VISUAL=vim
+	export EDITOR="$VISUAL"
 
 fi

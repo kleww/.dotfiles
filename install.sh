@@ -1,28 +1,30 @@
 #!/bin/bash
-############################
-# .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
 
-########## Variables
+# URL: https://github.com/kleww/.dotfiles
+# Author: Kevin Viricel
+# Description: This script install all dotfiles on the current system
 
-dir=~/.dotfiles                    # dotfiles directory
-olddir=~/.dotfiles_old             # old dotfiles backup directory
-files=".bash_profile .bashrc .vimrc"      # list of files/folders to symlink in homedir
+# ------------------------------------------------------------------------------
+# Variables
 
-##########
+dir=~/.dotfiles                         # dotfiles directory
+olddir=~/.dotfiles_old                  # old dotfiles backup directory
+files=".bash_profile .bashrc .vimrc"    # list of files/folders to symlink
 
-# Create dotfiles_old in homedir
+# ------------------------------------------------------------------------------
+# Settup directories
+
 echo "===== Creating $olddir for backup of any existing dotfiles in ~ ====="
 mkdir -p $olddir
 echo "===== ...done ====="
 
-# Change to the dotfiles directory
 echo "===== Changing to the $dir directory ====="
 cd $dir
 echo "===== ...done ====="
 
-# Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+# ------------------------------------------------------------------------------
+# Backup files then create symlinks
+
 for file in $files; do
     if [ -f ~/$file ]; then
         echo "===== Moving ~/$file to $olddir ====="
@@ -32,7 +34,9 @@ for file in $files; do
     ln -s $dir/$file ~/$file
 done
 
+# ------------------------------------------------------------------------------
 # Install vundle and plugins
+
 echo "===== Install vundle ====="
 rm -rf ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim

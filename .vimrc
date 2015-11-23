@@ -1,7 +1,6 @@
 " URL: https://github.com/kleww/.dotfiles
 " Author: Kevin Viricel
 " Description: Vim file configuration
-" ------------------------------------------------------------------------------
 
 " ------------------------------------------------------------------------------
 " Vundle settings
@@ -42,6 +41,7 @@ set background=dark                         " Dark background
 set t_Co=16
 "let g:solarized_termcolors=256             " if terminal != solarized uncomment
 silent! colorscheme solarized               " Use solarized colorscheme if exist
+
 " ------------------------------------------------------------------------------
 " Airline settings
 
