@@ -16,6 +16,7 @@ Plugin 'VundleVim/Vundle.vim'               " Let Vundle manage Vundle, required
 Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
+Plugin 'Valloric/YouCompleteMe'             " Completion
 Plugin 'altercation/vim-colors-solarized'   " Solarized colorscheme
 
 " Plugins must be added before the following line
@@ -29,7 +30,7 @@ syntax enable                               " Active syntax coloring
 set encoding=utf8                           " Set utf8 as standard encoding
 set expandtab                               " Use spaces intead of tabs
 set shiftwidth=4                            " 1 tab == 4 space
-set tabstop=4                               " 
+set tabstop=4                               "
 
 " ------------------------------------------------------------------------------
 " Display
