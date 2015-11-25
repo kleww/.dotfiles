@@ -16,6 +16,7 @@ Plugin 'VundleVim/Vundle.vim'               " Let Vundle manage Vundle, required
 Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
+Plugin 'Yggdroot/indentLine'                " Show indentation
 Plugin 'Valloric/YouCompleteMe'             " Completion
 Plugin 'altercation/vim-colors-solarized'   " Solarized colorscheme
 
