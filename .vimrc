@@ -28,10 +28,12 @@ filetype plugin indent on                   " Required
 
 syntax enable                               " Active syntax coloring
 set encoding=utf8                           " Set utf8 as standard encoding
+
 set tabstop=2                               "
-set shiftwidth=2                            " 1 tab == 4 space
+set shiftwidth=2                            " 1 tab == 2 space
 set softtabstop=2                           "
 set expandtab                               " Use spaces intead of tabs
+
 
 " ------------------------------------------------------------------------------
 " Gui mode
@@ -56,3 +58,16 @@ silent! colorscheme solarized               " Use solarized colorscheme if exist
 let g:airline_left_sep=''                   " Disable left separator
 let g:airline_right_sep=''                  " Disable right separator
 let g:airline_section_z='col: %v'           " Replace (%,line,col) by (col)
+
+" ------------------------------------------------------------------------------
+" Tutorial settings
+
+nnoremap <up> <nop>                         "
+nnoremap <down> <nop>                       " Disable arrow keys
+nnoremap <left> <nop>                       " in normal mode
+nnoremap <right> <nop>                      "
+
+inoremap <up> <nop>                         "
+inoremap <down> <nop>                       " Disable arrow keys
+inoremap <left> <nop>                       " in insert mode
+inoremap <right> <nop>                      "
