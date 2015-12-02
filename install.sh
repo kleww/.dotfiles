@@ -26,12 +26,12 @@ echo "===== ...done ====="
 # Backup files then create symlinks
 
 for file in $files; do
-    if [ -f ~/$file ]; then
-        echo "===== Moving ~/$file to $olddir ====="
-        mv -f ~/$file $olddir
-    fi
-    echo "===== Creating symlink to $file in home directory ====="
-    ln -s $dir/$file ~/$file
+  if [ -f ~/$file ]; then
+    echo "===== Moving ~/$file to $olddir ====="
+    mv -f ~/$file $olddir
+  fi
+  echo "===== Creating symlink to $file in home directory ====="
+  ln -s $dir/$file ~/$file
 done
 
 # ------------------------------------------------------------------------------

@@ -28,9 +28,16 @@ filetype plugin indent on                   " Required
 
 syntax enable                               " Active syntax coloring
 set encoding=utf8                           " Set utf8 as standard encoding
+set tabstop=2                               "
+set shiftwidth=2                            " 1 tab == 4 space
+set softtabstop=2                           "
 set expandtab                               " Use spaces intead of tabs
-set shiftwidth=4                            " 1 tab == 4 space
-set tabstop=4                               "
+
+" ------------------------------------------------------------------------------
+" Gui mode
+
+set guioptions-=r                           " Remove right-hand scroll bar
+set guioptions-=l                           " Remove left-hand scroll bar
 
 " ------------------------------------------------------------------------------
 " Display
