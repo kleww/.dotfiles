@@ -34,6 +34,11 @@ set shiftwidth=2                            " 1 tab == 2 space
 set softtabstop=2                           "
 set expandtab                               " Use spaces intead of tabs
 
+" ------------------------------------------------------------------------------
+" Split settings
+
+set splitright
+set splitbelow
 
 " ------------------------------------------------------------------------------
 " Gui mode
