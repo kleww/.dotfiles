@@ -17,7 +17,7 @@ Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
 Plugin 'Valloric/YouCompleteMe'             " Completion
-Plugin 'altercation/vim-colors-solarized'   " Solarized colorscheme
+Plugin 'tomasr/molokai'                     " Molokai colorscheme
 
 " Plugins must be added before the following line
 call vundle#end()                           " Required
@@ -53,9 +53,7 @@ set number                                  " Display line number
 set colorcolumn=81                          " Display a limit line after 80 col
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
-set t_Co=16
-"let g:solarized_termcolors=256             " if terminal != solarized uncomment
-silent! colorscheme solarized               " Use solarized colorscheme if exist
+silent! colorscheme molokai                 " Use molokai colorscheme if exist
 
 " ------------------------------------------------------------------------------
 " Airline settings
