@@ -17,6 +17,7 @@ Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
 Plugin 'Valloric/YouCompleteMe'             " Completion
+Plugin 'scrooloose/nerdcommenter'           " Commenter
 Plugin 'tomasr/molokai'                     " Molokai colorscheme
 
 " Plugins must be added before the following line
