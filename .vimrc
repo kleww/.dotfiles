@@ -18,6 +18,7 @@ Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
 Plugin 'Valloric/YouCompleteMe'             " Completion
 Plugin 'scrooloose/nerdcommenter'           " Commenter
+Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'tomasr/molokai'                     " Molokai colorscheme
 
 " Plugins must be added before the following line
@@ -51,6 +52,9 @@ set guioptions-=l                           " Remove left-hand scroll bar
 " Display
 
 set number                                  " Display line number
+if $TERM == "xterm-256color"                " If we are on 256 colors term
+  set t_Co=256
+endif
 set colorcolumn=81                          " Display a limit line after 80 col
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
@@ -70,7 +74,12 @@ let g:ycm_complete_in_comments=1
 let g:ycm_autoclose_preview_window_after_insertion=1
 
 " ------------------------------------------------------------------------------
-" Tutorial settings
+" Mapping
+
+map <C-n> :NERDTreeToggle<CR>
+
+" ------------------------------------------------------------------------------
+" Tutorial settings (Use vim the right way)
 
 nnoremap <up> <nop>                         "
 nnoremap <down> <nop>                       " Disable arrow keys

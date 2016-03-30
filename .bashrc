@@ -6,6 +6,9 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
         *) return;;
 	esac
 
+  # Set 256 color terminal
+  [[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
+
 	# don't put duplicate lines or lines starting with space in the history.
 	# See bash(1) for more options
 	HISTCONTROL=ignoreboth
