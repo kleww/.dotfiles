@@ -44,7 +44,3 @@ echo "===== ...done ====="
 echo "===== Install vundle plugins ====="
 vim +PluginInstall +qall
 echo "===== ...done ====="
-echo "===== Build YCM ====="
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer --gocode-completer
-echo "===== ...done ====="

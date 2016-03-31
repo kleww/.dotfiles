@@ -16,7 +16,7 @@ Plugin 'VundleVim/Vundle.vim'               " Let Vundle manage Vundle, required
 Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
-Plugin 'Valloric/YouCompleteMe'             " Completion
+Plugin 'Shougo/neocomplete'                 " Completion
 Plugin 'scrooloose/nerdcommenter'           " Commenter
 Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'tomasr/molokai'                     " Molokai colorscheme
@@ -30,7 +30,6 @@ filetype plugin indent on                   " Required
 
 syntax enable                               " Active syntax coloring
 set encoding=utf8                           " Set utf8 as standard encoding
-
 set tabstop=2                               "
 set shiftwidth=2                            " 1 tab == 2 space
 set softtabstop=2                           "
@@ -68,10 +67,13 @@ let g:airline_right_sep=''                  " Disable right separator
 let g:airline_section_z='col: %v'           " Replace (%,line,col) by (col)
 
 " ------------------------------------------------------------------------------
-" YCM settings
+" Neocomplete settings
 
-let g:ycm_complete_in_comments=1
-let g:ycm_autoclose_preview_window_after_insertion=1
+let g:neocomplete#enable_at_startup = 1     " Use neocomplete at startup
+let g:neocomplete#enable_smart_case = 1     " Use smartcase
+
+" TAB completion
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " ------------------------------------------------------------------------------
 " Mapping
