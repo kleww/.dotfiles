@@ -16,10 +16,10 @@ Plugin 'VundleVim/Vundle.vim'               " Let Vundle manage Vundle, required
 Plugin 'fatih/vim-go'                       " Golang
 Plugin 'tpope/vim-fugitive'                 " Git
 Plugin 'bling/vim-airline'                  " Status line
-Plugin 'Shougo/neocomplete'                 " Completion
+Plugin 'Valloric/YouCompleteMe'             " Completion
 Plugin 'scrooloose/nerdcommenter'           " Commenter
 Plugin 'scrooloose/nerdtree'                " File Explorer
-Plugin 'tomasr/molokai'                     " Molokai colorscheme
+Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'} " Tomorrow colorscheme
 
 " Plugins must be added before the following line
 call vundle#end()                           " Required
@@ -29,6 +29,7 @@ filetype plugin indent on                   " Required
 " General settings
 
 syntax enable                               " Active syntax coloring
+set backspace=2                             " Backspace like other apps
 set encoding=utf8                           " Set utf8 as standard encoding
 set tabstop=2                               "
 set shiftwidth=2                            " 1 tab == 2 space
@@ -54,10 +55,20 @@ set number                                  " Display line number
 if $TERM == "xterm-256color"                " If we are on 256 colors term
   set t_Co=256
 endif
-set colorcolumn=81                          " Display a limit line after 80 col
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
-silent! colorscheme molokai                 " Use molokai colorscheme if exist
+silent! colorscheme Tomorrow-Night-Eighties " Use Tomorrow colorscheme if exist
+
+" ------------------------------------------------------------------------------
+" Vim-go settings
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_metalinter_autosave = 1
 
 " ------------------------------------------------------------------------------
 " Airline settings
@@ -66,11 +77,10 @@ let g:airline_left_sep=''                   " Disable left separator
 let g:airline_right_sep=''                  " Disable right separator
 let g:airline_section_z='col: %v'           " Replace (%,line,col) by (col)
 
-" ------------------------------------------------------------------------------
-" Neocomplete settings
+" YouCompleteMe settings
 
-let g:neocomplete#enable_at_startup = 1     " Use neocomplete at startup
-let g:neocomplete#enable_smart_case = 1     " Use smartcase
+let g:ycm_complete_in_comments=1
+let g:ycm_autoclose_preview_window_after_insertion=1
 
 " TAB completion
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
