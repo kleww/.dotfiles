@@ -3,15 +3,19 @@
 # Author: Kevin Viricel
 # Description: This script install all dotfiles on the current system
 
-#######################################
-# Resolve binary path even if there are symlinks and setup BINARY_PATH global
-# Globals:
-#   BINARY_PATH
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
+# Globals
+BINARY_PATH=""
+BACKUP_DIR_NAME="backup"
+
+################################################################################
+# Resolve binary path even if there are symlinks and setup BINARY_PATH global  #
+# Globals:                                                                     #
+#   BINARY_PATH                                                                #
+# Arguments:                                                                   #
+#   None                                                                       #
+# Returns:                                                                     #
+#   None                                                                       #
+################################################################################
 function _get_binary_path() {
   local source="${BASH_SOURCE[0]}"
   while [ -h "$source" ]; do
@@ -22,15 +26,15 @@ function _get_binary_path() {
   BINARY_PATH="$( cd -P "$( dirname "$source" )" && pwd )"
 }
 
-#######################################
-# Check if all required programs are installer and can be reach by this script
-# Globals:
-#   None
-# Arguments:
-#   None
-# Returns:
-#   None
-#######################################
+################################################################################
+# Check if all required programs are installer and can be reach by this script #
+# Globals:                                                                     #
+#   None                                                                       #
+# Arguments:                                                                   #
+#   None                                                                       #
+# Returns:                                                                     #
+#   None                                                                       #
+################################################################################
 function _check_required_programs() {
   local req_progs=(readlink date)
   for p in ${req_progs[@]}; do
@@ -41,17 +45,17 @@ function _check_required_programs() {
 done
 }
 
-#######################################
-# Prompt user for confimation
-# Globals:
-#   None
-# Arguments:
-#   None
-# Returns:
-#   0 if user accept
-#   1 if user refuse
-#######################################
-_confirm() {
+################################################################################
+# Prompt user for confimation                                                  #
+# Globals:                                                                     #
+#   None                                                                       #
+# Arguments:                                                                   #
+#   None                                                                       #
+# Returns:                                                                     #
+#   0 if user accept                                                           #
+#   1 if user refuse                                                           #
+################################################################################
+function _confirm() {
   while true; do
     read -p "$1 [Y/n]" yn
     case $yn in
@@ -61,12 +65,29 @@ _confirm() {
   done
 }
 
+_backup_file() {
+  local backup
+  local date=`date +%Y-%m-%d:%H:%M:%S`
+  read -p "Enter backup path:($BINARY_PATH/$BACKUP_DIR_NAME/$date-$1)" backup
+  backup=${backup:-$BINARY_PATH/$BACKUP_DIR_NAME/$date-$1}
+  echo "$backup is save"
+}
+
 _import_dotfiles() {
-  local dotfiles=".bash_profile .bashrc .vimrc"
-  for dotfile in $dotfiles; do
-  if [ -f $BINARY_PATH/$dotfile ]; then
-    _confirm "Do you want to import $dotfile ?"
-  fi
+  local dotfiles="toto .bash_profile .bashrc .vimrc"
+  for file in $dotfiles; do
+    if  _confirm "Do you want to import $file?";then
+      if [ -f $HOME/$file ];then
+        if _confirm "$HOME/$file already exist. Do you want to replace it?";then
+          if _confirm "Do you want to back up the old file ?";then
+            _backup_file $file
+          fi
+          echo "File replaced"
+        fi
+      else
+        echo "File created"
+      fi
+    fi
   done
 }
 
@@ -74,8 +95,9 @@ function main() {
   _check_required_programs
   _get_binary_path
 
+
   _import_dotfiles
-  _confirm "Do you want to install Vundle ?"
+  _confirm "Do you want to install Vundle?"
 }
 
 main "$@"
