@@ -1,0 +1,29 @@
+#!/bin/bash
+
+function _get_binary_path() {
+  local source="${BASH_SOURCE[0]}"
+  while [ -h "$source" ]; do
+    local dir="$( cd -P "$( dirname "$source" )" && pwd )"
+    source="$(readlink "$source")"
+    [[ $source != /* ]] && source="$dir/$source"
+  done
+  declare -r binaryPath="$( cd -P "$( dirname "$source" )" && pwd )"
+}
+
+function _check_required_programs() {
+  local req_progs=(readlink date)
+  for p in ${req_progs[@]}; do
+    hash "${p}" 2>&- || \
+    { echo >&2 " Required program \"${p}\" not installed or in search PATH.";
+    exit 1;
+  }
+done
+}
+
+function main() {
+  _check_required_programs
+  _get_binary_path
+  echo $binaryPath
+}
+
+main "$@"
