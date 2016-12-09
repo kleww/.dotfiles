@@ -68,9 +68,14 @@ function _confirm() {
 _backup_file() {
   local backup
   local date=`date +%Y-%m-%d:%H:%M:%S`
-  read -p "Enter backup path:($BINARY_PATH/$BACKUP_DIR_NAME/$date-$1)" backup
-  backup=${backup:-$BINARY_PATH/$BACKUP_DIR_NAME/$date-$1}
-  echo "$backup is save"
+  if [ ! -d $BINARY_PATH/$BACKUP_DIR_NAME ];then
+    echo "Creating backup directory: $BINARY_PATH/$BACKUP_DIR_NAME..."
+    mkdir -p $BINARY_PATH/$BACKUP_DIR_NAME || exit 1
+    echo "==>...DONE"
+  fi
+  read -p "Enter backup filename:($date-$1)" backup
+  backup=${backup:-$date-$1}
+  cp $HOME/$1 $BINARY_PATH/$BACKUP_DIR_NAME/$backup && echo "==>Backup created"
 }
 
 _import_dotfiles() {
@@ -96,7 +101,9 @@ function main() {
   _get_binary_path
 
 
-  _import_dotfiles
+  if _confirm "Do you want to import dotfiles";then
+    _import_dotfiles
+  fi
   _confirm "Do you want to install Vundle?"
 }
 
