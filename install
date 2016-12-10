@@ -118,6 +118,10 @@ _install_vundle_plugins() {
   vim +PluginInstall +qall
 }
 
+_override_system_vim() {
+  brew install macvim --with-override-system-vim
+}
+
 _install_homebrew() {
   xcode-select --install
   ruby -e "$(curl -fsSL $BREW_REPO)"
@@ -127,11 +131,11 @@ function main() {
   _check_required_programs
   _get_binary_path
 
-
+  _confirm "Do you want to install Homebrew?" && _install_homebrew
+  _confirm "Do you want to install vim latest version?" && _override_system_vim
   _confirm "Do you want to import dotfiles" && _import_dotfiles
   _confirm "Do you want to install Vundle?" && _install_vundle
   _confirm "Do you want to install Vundle plugins?" && _install_vundle_plugins
-  _confirm "Do you want to install Homebrew?" && _install_homebrew
 }
 
 main "$@"
