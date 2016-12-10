@@ -6,6 +6,8 @@
 # Globals
 BINARY_PATH=""
 BACKUP_DIR_NAME="backup"
+VUNDLE_REPOSITORY="https://github.com/VundleVim/Vundle.vim.git"
+
 
 ################################################################################
 # Resolve binary path even if there are symlinks and setup BINARY_PATH global  #
@@ -79,7 +81,7 @@ _backup_file() {
 }
 
 _import_dotfiles() {
-  local dotfiles="toto .bash_profile .bashrc .vimrc"
+  local dotfiles=".bash_profile .bashrc .vimrc"
   for file in $dotfiles; do
     if  _confirm "Do you want to import $file?";then
       if [ -f $HOME/$file ];then
@@ -87,10 +89,10 @@ _import_dotfiles() {
           if _confirm "Do you want to back up the old file ?";then
             _backup_file $file
           fi
-          echo "File replaced"
+          ln -fhs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
         fi
       else
-        echo "File created"
+        ln -fhs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
       fi
     fi
   done
