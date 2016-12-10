@@ -6,9 +6,12 @@
 # Globals
 BINARY_PATH=""
 BACKUP_DIR_NAME="backup"
-VUNDLE_REPOSITORY="https://github.com/VundleVim/Vundle.vim.git"
+VUNDLE_REPO="https://github.com/VundleVim/Vundle.vim.git"
 VUNDLE_INSTALL_PATH="$HOME/.vim/bundle/Vundle.vim"
 VUNDLE_BUNDLE_PATH="$HOME/.vim/bundle"
+BREW_REPO="https://raw.githubusercontent.com/Homebrew/install/master/install"
+REQUIRED_PROGS=(readlink date curl ruby)
+
 
 ################################################################################
 # Resolve binary path even if there are symlinks and setup BINARY_PATH global  #
@@ -32,15 +35,14 @@ function _get_binary_path() {
 ################################################################################
 # Check if all required programs are installer and can be reach by this script #
 # Globals:                                                                     #
-#   None                                                                       #
+#   REQUIRED_PROGS                                                             #
 # Arguments:                                                                   #
 #   None                                                                       #
 # Returns:                                                                     #
 #   None                                                                       #
 ################################################################################
 function _check_required_programs() {
-  local req_progs=(readlink date)
-  for p in ${req_progs[@]}; do
+  for p in ${REQUIRED_PROGS[@]}; do
     hash "${p}" 2>&- || \
     { echo >&2 " Required program \"${p}\" not installed or in search PATH.";
     exit 1;
@@ -103,17 +105,22 @@ _install_vundle() {
   if [ -d $VUNDLE_INSTALL_PATH ];then
     if _confirm "Vundle already install. Do you want to replace it?";then
       rm -rf $VUNDLE_BUNDLE_PATH && echo "==>Remove Vundle"
-      git clone $VUNDLE_REPOSITORY $VUNDLE_INSTALL_PATH &&\
+      git clone $VUNDLE_REPO $VUNDLE_INSTALL_PATH &&\
       echo "==>Vundle installed"
     fi
   else
-    git clone $VUNDLE_REPOSITORY $VUNDLE_INSTALL_PATH &&\
+    git clone $VUNDLE_REPO $VUNDLE_INSTALL_PATH &&\
     echo "==>Vundle installed"
   fi
 }
 
 _install_vundle_plugins() {
   vim +PluginInstall +qall
+}
+
+_install_homebrew() {
+  xcode-select --install
+  ruby -e "$(curl -fsSL $BREW_REPO)"
 }
 
 function main() {
@@ -124,6 +131,7 @@ function main() {
   _confirm "Do you want to import dotfiles" && _import_dotfiles
   _confirm "Do you want to install Vundle?" && _install_vundle
   _confirm "Do you want to install Vundle plugins?" && _install_vundle_plugins
+  _confirm "Do you want to install Homebrew?" && _install_homebrew
 }
 
 main "$@"
