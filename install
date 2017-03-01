@@ -92,10 +92,10 @@ _import_dotfiles() {
           if _confirm "Do you want to back up the old file ?";then
             _backup_file $file
           fi
-          ln -fhs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
+          ln -fs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
         fi
       else
-        ln -fhs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
+        ln -fs $BINARY_PATH/$file $HOME/$file && echo "==>Symlink created"
       fi
     fi
   done
