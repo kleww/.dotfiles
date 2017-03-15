@@ -20,6 +20,8 @@ Plugin 'Valloric/YouCompleteMe'             " Completion
 Plugin 'scrooloose/nerdcommenter'           " Commenter
 Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'} " Tomorrow colorscheme
+Plugin 'ryanoasis/vim-devicons'
+Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Plugins must be added before the following line
 call vundle#end()                           " Required
@@ -58,6 +60,29 @@ endif
 set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
 silent! colorscheme Tomorrow-Night-Eighties " Use Tomorrow colorscheme if exist
+hi VertSplit ctermbg=NONE                   " Disable ugly vertical separator
+
+" ------------------------------------------------------------------------------
+" NERDTree settings
+
+let g:NERDTreeMinimalUI = 1
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+
+" ------------------------------------------------------------------------------
+" Vim-devicons settings
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols={}
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go']=''
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols={}
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['dockerfile']=''
+let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['docker-compose.yml']=''
+
+" ------------------------------------------------------------------------------
+" NERDTree syntax highlight settings
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['go'] = "6AD7E5"
+
 
 " ------------------------------------------------------------------------------
 " Vim-go settings
@@ -73,10 +98,10 @@ let g:go_metalinter_autosave = 1
 " ------------------------------------------------------------------------------
 " Airline settings
 
-let g:airline_left_sep=''                   " Disable left separator
-let g:airline_right_sep=''                  " Disable right separator
 let g:airline_section_z='col: %v'           " Replace (%,line,col) by (col)
+let g:airline_powerline_fonts = 1
 
+" ------------------------------------------------------------------------------
 " YouCompleteMe settings
 
 let g:ycm_complete_in_comments=1
@@ -84,11 +109,6 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 
 " TAB completion
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" ------------------------------------------------------------------------------
-" Mapping
-
-map <C-n> :NERDTreeToggle<CR>
 
 " ------------------------------------------------------------------------------
 " Tutorial settings (Use vim the right way)
