@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'} " Tomorrow colorscheme
 Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plugin 'kleww/nerd-tree-git-status-highlight'
 
 " Plugins must be added before the following line
 call vundle#end()                           " Required
@@ -66,7 +67,21 @@ hi VertSplit ctermbg=NONE                   " Disable ugly vertical separator
 " NERDTree settings
 
 let g:NERDTreeMinimalUI = 1
-map <C-n> :NERDTreeToggle<CR>
+noremap <silent> <C-n> :NERDTreeToggle<CR>
+
+function g:NERDTreeToggleCursorToTreeWin()
+  if g:NERDTree.IsOpen()
+    if g:NERDTree.GetWinNum() ==# winnr()
+      wincmd p 
+    else
+      call g:NERDTree.CursorToTreeWin()
+    endif
+  else
+    NERDTreeToggle
+  endif
+endfunction
+
+nnoremap <silent> <C-w>0 :call g:NERDTreeToggleCursorToTreeWin()<CR>
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 
@@ -94,6 +109,7 @@ let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_metalinter_autosave = 1
+let g:go_fmt_command = "goimports"
 
 " ------------------------------------------------------------------------------
 " Airline settings
@@ -113,12 +129,14 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " ------------------------------------------------------------------------------
 " Tutorial settings (Use vim the right way)
 
-nnoremap <up> <nop>                         "
-nnoremap <down> <nop>                       " Disable arrow keys
-nnoremap <left> <nop>                       " in normal mode
-nnoremap <right> <nop>                      "
+" Disable arrow keys in normal mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
 
-inoremap <up> <nop>                         "
-inoremap <down> <nop>                       " Disable arrow keys
-inoremap <left> <nop>                       " in insert mode
-inoremap <right> <nop>                      "
+" Disable arrow keys in insert mode
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
