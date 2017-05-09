@@ -14,15 +14,12 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'               " Let Vundle manage Vundle, required
 Plugin 'fatih/vim-go'                       " Golang
-Plugin 'tpope/vim-fugitive'                 " Git
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'bling/vim-airline'                  " Status line
 Plugin 'Valloric/YouCompleteMe'             " Completion
-Plugin 'scrooloose/nerdcommenter'           " Commenter
-Plugin 'scrooloose/nerdtree'                " File Explorer
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'} " Tomorrow colorscheme
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plugin 'kleww/nerd-tree-git-status-highlight'
+Plugin 'lifepillar/pgsql.vim'
+Plugin 'tpope/vim-vinegar'
 
 " Plugins must be added before the following line
 call vundle#end()                           " Required
@@ -30,7 +27,6 @@ filetype plugin indent on                   " Required
 
 " ------------------------------------------------------------------------------
 " General settings
-
 syntax enable                               " Active syntax coloring
 set backspace=2                             " Backspace like other apps
 set encoding=utf8                           " Set utf8 as standard encoding
@@ -38,12 +34,20 @@ set tabstop=2                               "
 set shiftwidth=2                            " 1 tab == 2 space
 set softtabstop=2                           "
 set expandtab                               " Use spaces intead of tabs
+set nowrap
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | :edit. | endif
 
 " ------------------------------------------------------------------------------
 " Split settings
 
 set splitright
 set splitbelow
+" when spliting open fileexplorer in previous file directory 
+nnoremap <silent> <C-w>v <C-w>v:lcd %:p:h<CR>:edit.<CR>
+nnoremap <silent> <C-w><C-v> <C-w>v:lcd %:p:h<CR>:edit.<CR>
+nnoremap <silent> <C-w>s <C-w>s:lcd %:p:h<CR>:edit.<CR>
+nnoremap <silent> <C-w><C-s> <C-w>s:lcd %:p:h<CR>:edit.<CR>
 
 " ------------------------------------------------------------------------------
 " Gui mode
@@ -54,7 +58,8 @@ set guioptions-=l                           " Remove left-hand scroll bar
 " ------------------------------------------------------------------------------
 " Display
 
-set number                                  " Display line number
+set number                          " Display line number
+set relativenumber                          " Display line number
 if $TERM == "xterm-256color"                " If we are on 256 colors term
   set t_Co=256
 endif
@@ -62,45 +67,11 @@ set laststatus=2                            " Always display the status line
 set background=dark                         " Dark background
 silent! colorscheme Tomorrow-Night-Eighties " Use Tomorrow colorscheme if exist
 hi VertSplit ctermbg=NONE                   " Disable ugly vertical separator
+execute "set colorcolumn=" . join(range(81,335), ',')
+au FileType qf setlocal nonumber colorcolumn=
 
 " ------------------------------------------------------------------------------
-" NERDTree settings
-
-let g:NERDTreeMinimalUI = 1
-noremap <silent> <C-n> :NERDTreeToggle<CR>
-
-function g:NERDTreeToggleCursorToTreeWin()
-  if g:NERDTree.IsOpen()
-    if g:NERDTree.GetWinNum() ==# winnr()
-      wincmd p 
-    else
-      call g:NERDTree.CursorToTreeWin()
-    endif
-  else
-    NERDTreeToggle
-  endif
-endfunction
-
-nnoremap <silent> <C-w>0 :call g:NERDTreeToggleCursorToTreeWin()<CR>
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-
-" ------------------------------------------------------------------------------
-" Vim-devicons settings
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols={}
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['go']=''
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols={}
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['dockerfile']=''
-let g:WebDevIconsUnicodeDecorateFileNodesExactSymbols['docker-compose.yml']=''
-
-" ------------------------------------------------------------------------------
-" NERDTree syntax highlight settings
-let g:NERDTreeExtensionHighlightColor = {}
-let g:NERDTreeExtensionHighlightColor['go'] = "6AD7E5"
-
-
-" ------------------------------------------------------------------------------
-" Vim-go settings
+" vim-go settings
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -108,6 +79,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint', 'errcheck']
 let g:go_metalinter_autosave = 1
 let g:go_fmt_command = "goimports"
 

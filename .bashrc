@@ -35,11 +35,20 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 
   # Compiled binaries
   export PATH="$HOME/.bin:$PATH"
+  if [ -f "$HOME/.bin/paths.sh" ]; then
+   source "$HOME/.bin/paths.sh"
+  fi
 
   # Golang
   export GOROOT=$HOME/.bin/Cellar/golang/1.8
   export PATH="$PATH:$GOROOT/bin"
   export GOPATH=$HOME/wd/go
+  export PATH="$PATH:$GOPATH/bin"
+
+  # Java
+  export JAVA_HOME=$HOME/.bin/Cellar/java/jdk1.8.0_121
+  export JRE_HOME=$JAVA_HOME/jre
+  export PATH="$PATH:$JRE_HOME/bin:$JAVA_HOME/bin"
 
   # Docker Machine
   eval $(docker-machine env dev)
